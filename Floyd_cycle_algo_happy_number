@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+int sqd(int n)
+{
+    double s=0;
+    int i=10,j;
+    while(n)
+    {
+        j = n%i;
+        s = s + j*j;
+        n = n/i;
+    }
+    
+    return s;
+}
+
+bool isHappyNumber(int n) 
+{ 
+    int slow, fast; 
+    slow = fast = n; 
+    do
+    {   slow = sqd(slow); 
+        fast = sqd(sqd(fast)); 
+  
+    } 
+    while (slow != fast); 
+    
+    return (slow == 1); 
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    
+    if(isHappyNumber(n))
+        cout<<"true";
+    else
+        cout<<"false";
+    
+    return 0;
+}
