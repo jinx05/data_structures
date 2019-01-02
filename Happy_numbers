@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <set>
+using namespace std;
+
+int sqd(int n)
+{
+    double s=0;
+    int i=10,j;
+    while(n)
+    {
+        j = n%i;
+        s = s + j*j;
+        n = n/i;
+    }
+    
+    return s;
+}
+
+int isHappyNumber(int n)
+{
+    set<int> s;
+    while (1)
+    {
+        n = sqd(n);
+        if (n == 1)
+            return true;
+        if (s.find(n) != s.end())
+            return false;
+        s.insert(n);
+    }
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    
+    if(isHappyNumber(n))
+        cout<<"true";
+    else
+        cout<<"false";
+    
+    return 0;
+}
