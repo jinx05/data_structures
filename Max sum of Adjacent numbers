@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+    vector<int> dest;
+    int value;
+    cin >> value;
+    if ( cin ) {
+    dest.push_back( value );
+    char separator;
+    while ( std::cin >> separator >> value && separator == ',' ) {
+        dest.push_back( value );
+    }
+}
+if ( !cin.eof() ) {
+    cerr << "format error in input" << endl;
+}
+
+int maxt=0;
+auto j = dest.begin();
+while(j != dest.end())
+{   
+    int sum =0;
+    int max = 0;
+    for(auto k = j; k != dest.end(); k++)
+    {
+        sum = sum + (*k);
+        if(sum > max)
+            {
+                max = sum;
+            }
+    }
+    
+    if(max > maxt)
+    {
+        maxt = max;
+    }
+    
+    //cout<<max<<" ";
+    
+    j = j+1;
+   
+}  
+   cout<<maxt;
+    return 0;
+}
