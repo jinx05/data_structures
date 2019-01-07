@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+struct node {
+    node* left;
+    int num;
+    node* right;
+};
+
+int getmax(int a, int b)
+{
+    return ((a > b)? a : b);
+}
+
+node *getnode(int val)
+{
+    node* new_node = new node;
+    new_node->num = val;
+    new_node->left = NULL;
+    new_node->right = NULL;
+    return new_node;
+}
+
+int getheight(node* root){
+    if(root == NULL)
+        return 0;
+    
+    int lh = getheight(root->left);
+    int rh = getheight(root->right);
+    return (1 + max(lh,rh));
+}
+
+node* createtree(){
+    node* root = getnode(31);
+    root->left = getnode(16);
+    root->right = getnode(52);
+    root->left->left = getnode(7);
+    root->left->right = getnode(24);
+    root->left->right->left = getnode(19);
+    root->left->right->right = getnode(29);
+    return root;
+}
+
+int main()
+{
+    node* root = createtree();
+    cout<<"height of the tree = "<<getheight(root);
+    
+    return 0;
+}
