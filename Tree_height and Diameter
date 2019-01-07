@@ -30,6 +30,18 @@ int getheight(node* root){
     return (1 + max(lh,rh));
 }
 
+int getdia(node* root){
+    if(root == NULL)
+        return 0;
+    int lh = getheight(root->left);
+    int rh = getheight(root->right);
+    
+    int ld = getdia(root->left);
+    int rd = getdia(root->right);
+    
+    return max(lh + rh +1, max(ld,rd));
+}
+
 node* createtree(){
     node* root = getnode(31);
     root->left = getnode(16);
@@ -44,7 +56,8 @@ node* createtree(){
 int main()
 {
     node* root = createtree();
-    cout<<"height of the tree = "<<getheight(root);
-    
+    cout<<"height of the tree = "<<getheight(root)<<"\n";
+
+    cout<<"height of the tree = "<<getdia(root)<<"\n";
     return 0;
 }
