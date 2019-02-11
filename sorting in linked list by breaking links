@@ -1,0 +1,163 @@
+package list_sort;
+ 
+// node
+public class llist {
+	    node head;
+	    static class node{
+	        int num;
+	        node next;
+	        node(int n) { this.num = n; }
+	    }
+
+// swap function which unlinks nodes	    
+
+public static void swapll(llist list,node n1, node n2)
+{
+	if(list.head == null)
+		return ;
+	
+	node t1,t2,t3,t4;
+	t1 = travep(list,n1);
+	t2 = travep(list,n2);
+	t3 = n1.next;
+	t4 = n2.next;
+	if(n1 == list.head)
+	{	
+		if(n1.next == n2)
+		{
+			list.head = n2;
+			n2.next = n1;
+			n1.next = t4;
+		}
+		else
+		{
+			list.head = n2;
+			n2.next = t3;
+			t2.next = n1;
+			n1.next = t4;
+		}
+	}
+	else 
+		{
+		if(n1.next == n2)
+		{
+			n2.next = n1;
+			t1.next = n2;
+			n1.next = t4;
+		}
+		else 
+		{
+			t1.next = n2;
+			n2.next = t3;
+			t2.next = n1;
+			n1.next = t4;
+		}
+		}
+}
+
+// list traversal and printing 
+
+public static void printl(llist list)
+{
+	node temp = list.head;
+	if(list.head == null)
+		System.out.println("empty list");
+	else
+		while(temp != null)
+		{
+			System.out.println(temp.num);
+			temp = temp.next;
+		}
+}
+
+// returns node just previous to the given node or head in case head is given
+public static node travep(llist list,node n)
+{
+    if(list.head == n)
+        return list.head;
+    else
+        {
+            node tmp = list.head;
+            while( tmp.next != n)
+            {
+                tmp = tmp.next;
+            }
+            return tmp;
+        }
+    
+}
+
+//insert functions to create a single linked list
+
+public static llist insert(llist list,int n)
+{
+    node n1 = new node(n);
+    n1.next = null;
+    if(list.head == null)
+        list.head = n1;
+    else
+    {
+        node temp = list.head;
+    	while(temp.next != null)
+    	{
+    		temp = temp.next;
+    	}
+        temp.next = n1;
+    }
+    
+    return list;
+    
+}
+
+// sorting function: used selection sort here.
+
+public static void sortll(llist list)
+{
+			node temp1 = list.head;
+			while(temp1 != null)
+			{
+					node temp2 = temp1.next;
+					node fl = temp1;
+						while(temp2 != null)
+						{
+							if(temp2.num < fl.num)
+								{
+									fl = temp2;
+								}
+								temp2 = temp2.next;
+						}
+						if(fl != temp1)
+						{
+
+							swapll(list,temp1,fl);
+						}
+						temp1 = fl.next;
+			}
+}
+
+// main function
+
+public static void main (String[] args) {
+	llist list = new llist();
+	list = insert(list,10);
+	list = insert(list,1);
+	list = insert(list,100);
+	list = insert(list,2);
+	list = insert(list,50);
+	list = insert(list,60);
+	list = insert(list,40);
+	list = insert(list,35);
+	list = insert(list,3);
+	list = insert(list,400);
+	list = insert(list,200);
+	list = insert(list,9);
+	list = insert(list,15);
+	list = insert(list,16);
+	list = insert(list,9);
+	
+	printl(list);
+	sortll(list);
+	printl(list);
+	
+}
+}
