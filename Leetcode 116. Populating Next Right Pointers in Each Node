@@ -1,0 +1,52 @@
+class Solution:
+    def height(self,root):
+        if root == None:
+            return 0
+        while root:
+            return max(1 + self.height(root.left), 1 + self.height(root.right))
+        
+    def connectatlevel(self,root,level,l):
+    # as a slight modification here I return the list of nodes at a given level
+        if root == None:
+            return l
+        if level == 1:
+            l.append(root)
+            return l
+        if level > 1:
+            self.connectatlevel(root.left,level-1,l)
+            self.connectatlevel(root.right,level-1,l)
+            
+        return l
+    
+    def connector(self,l):
+        if len(l) == 0:
+            return
+        # empty list doesn't have any nodes
+        # if not empty the tree will have eithe 1 node or more than one
+        # so in the next part I can just run over every element and connect it to the next element
+        # connect the last element(at the end of the list) to None
+        for pair in l:
+            if len(pair) == 1:
+                pair[0].next = None
+            if len(pair) > 1:
+                k = 0
+                while k < len(pair)-1:
+                    pair[k].next = pair[k+1]
+                    k += 1
+                pair[len(pair)-1].next = None
+                
+        return
+    
+    def connect(self, root: 'Node') -> 'Node':
+        if root == None:
+            return None
+        ht = self.height(root)
+        final = []
+        for i in range(1,ht + 1):
+            final.append(self.connectatlevel(root,i,[]))
+        # print(final)
+        # this part is like BFS
+            
+        self.connector(final)
+        
+        return root
