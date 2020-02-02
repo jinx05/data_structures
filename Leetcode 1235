@@ -1,0 +1,34 @@
+def makelist(starttime, endtime, profit):
+    l = []
+    for i in range(len(starttime)):
+        l.append((starttime[i], endtime[i], profit[i]))
+
+    return sorted(l, key=lambda x: x[1])
+
+def getlastinterval(intervallist, k):
+    # assuming thet the inerval list is already sorted
+    j = k - 1
+    while j >= 0:
+        if intervallist[j][1] <= intervallist[k][0]:
+            return j
+        j = j-1
+    return -1
+
+def jobScheduling(startTime, endTime, profit) -> int:
+
+    intervals = makelist(startTime, endTime, profit)
+    print(intervals)
+
+    dp = [0] * (len(startTime) + 1)
+    dp[0] = intervals[0][2]
+
+    for i in range(1, len(profit)):
+        interval = getlastinterval(intervals, i)
+        res_temp = intervals[i][2]
+        if interval >= 0:
+            res_temp += dp[interval]
+        dp[i] = max(res_temp, dp[i - 1])
+        print(dp[i])
+    print(dp)
+
+    return max(dp)
