@@ -1,0 +1,20 @@
+def coinChange(coins, amount: int):
+    def getnum(amount):
+        nonlocal dp
+        ans = 10 ** 10
+        if dp[amount] != -1:
+            return dp[amount]
+        if amount < 0:
+            return 0
+        for i in coins:
+            if amount - i >= 0:
+                ans = min(ans, 1 + getnum(amount - i))
+            dp[amount] = ans
+        return dp[amount]
+
+    dp = [-1 for i in range(amount + 1)]
+    dp[0] = 0
+    ans = getnum(amount)
+    if ans == 10**10:
+        return -1
+    return ans
